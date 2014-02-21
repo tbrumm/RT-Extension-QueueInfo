@@ -1,0 +1,52 @@
+<& /Elements/Header, Title => ("Queues and Mail Addresses") &>
+<& /Elements/Tabs &>
+
+
+<div id="body" class="login-body">
+
+<h1>RT Queues and Corresponding Mail Addresses</h1>
+
+%if ($queues->Count == 0) {
+<li><em><&|/l&>No queues matching search criteria found.</&></em></li>
+% }
+<table cellpadding="0" cellspacing="0" border="0" style="text-align: left; width: 100%;">
+  <tbody>
+    <tr class="collection-as-table">
+      <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Name</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Mail Address</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Description</td>
+    </tr>
+% my $i =0;
+%while ( $queue = $queues->Next) {
+%unless ($queue->CorrespondAddress eq '') {
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><%$queue->Name%></td>
+      <td class="collection-as-table"><a href="mailto:<%$queue->CorrespondAddress%>"><%$queue->CorrespondAddress%></a></td>
+      <td class="collection-as-table"><%$queue->Description%></td>
+    </tr>
+% $i++;
+%}
+%}
+
+</tbody>
+</table>
+
+<%INIT>
+
+my ($queue, $caption);
+my $queues = RT::Queues->new($RT::SystemUser);
+$queues->UnLimit();
+
+if ($FindDisabledQueues) {
+        $caption = loc("All Queues");
+        $queues->{'find_disabled_rows'} = 1;
+} else {
+    $caption = loc("Enabled Queues");
+}
+
+</%INIT>
+<%ARGS>
+$FindDisabledQueues => 0
+</%ARGS>
+
+

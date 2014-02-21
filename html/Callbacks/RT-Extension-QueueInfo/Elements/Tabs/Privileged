@@ -1,0 +1,16 @@
+<%INIT>
+my $request_path = $HTML::Mason::Commands::r->path_info;
+$request_path =~ s!/{2,}!/!g;
+
+my $tools = Menu->child("tools");
+
+$tools->child( queueinfo =>
+	title       => loc('Queue Information'),
+	description => loc('Information about Queues and Mailaddresses'),
+	path        => '/QueueInfo/index.html',
+);
+
+</%INIT>
+<%ARGS>
+$show_menu => 1
+</%ARGS>
