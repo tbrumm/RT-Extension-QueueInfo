@@ -13,6 +13,7 @@
   <tbody>
     <tr class="collection-as-table">
       <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Name</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Lifecycle</td>
       <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Mail Address</td>
       <td style="font-weight:bold;border-bottom:1px solid #000" class="collection-as-table">Queue Description</td>
     </tr>
@@ -21,6 +22,7 @@
 %unless ($queue->CorrespondAddress eq '') {
 % $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
       <td class="collection-as-table"><%$queue->Name%></td>
+      <td class="collection-as-table"><%$queue->Lifecycle%></td>
       <td class="collection-as-table"><a href="mailto:<%$queue->CorrespondAddress%>"><%$queue->CorrespondAddress%></a></td>
       <td class="collection-as-table"><%$queue->Description%></td>
     </tr>
